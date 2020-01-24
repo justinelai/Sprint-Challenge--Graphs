@@ -10,18 +10,24 @@ class Path:
         self.graph = {}
     
     def wander(self, starting_room, move_log):
+        # Initialize stack
         stack=[]
-        reverse_direction = {'n': 's', 's': 'n', 'w': 'e', 'e': 'w'}
         current = starting_room
         stack.append([(current, "")])
 
+        # IN PROGRESS: Keep track of directions
+        reverse_direction = {'n': 's', 's': 'n', 'w': 'e', 'e': 'w'}
+
         while len(stack) > 0: 
-            path = stack.pop()
-            popped = path[-1]
-            vertex, refDir = popped
-            if refDir:
-                move_log.append(reverse_direction[refDir])
-            
+            advpath = stack.pop()
+
+            """if len(advpath) > 1:
+                for step in advpath[1:]:
+                    move_log.append(reverse_direction[step[1]])"""
+
+            popped = advpath[-1]
+            vertex = popped[0]
+            print(vertex)
             if vertex.id not in self.graph:
                 self.graph[vertex.id] = {} # Establish dict entry for this room.
 
@@ -33,10 +39,12 @@ class Path:
                     
                     if next_vert not in self.graph: # If room hasn't been explored
                         self.graph[vertex.id][next_dir] = next_vert.id # Set exit room ID in graph
-                        new_path = list(path) # Make a copy of path rather than reference
+
+                        new_path = list(advpath) # Make a copy of path rather than reference
+                        
                         new_path.append((next_vert, next_dir)) # Append this new vert and provide what direction it was
                         move_log.append(next_dir)
                         stack.append(new_path) # Add new room to stack
 
-        #sorted_dict = dict(sorted(self.graph.items())) 
-        print(self.graph)
+        sorted_dict = dict(sorted(self.graph.items())) 
+        print(sorted_dict)
