@@ -1,6 +1,7 @@
 from room import Room
 from player import Player
 from world import World
+from path import Path
 
 import random
 from ast import literal_eval
@@ -13,7 +14,7 @@ world = World()
 # map_file = "maps/test_line.txt"
 # map_file = "maps/test_cross.txt"
 # map_file = "maps/test_loop.txt"
-# map_file = "maps/test_loop_fork.txt"
+#map_file = "maps/test_loop_fork.txt"
 map_file = "maps/main_maze.txt"
 
 # Loads the map into a dictionary
@@ -29,6 +30,8 @@ player = Player(world.starting_room)
 # traversal_path = ['n', 'n']
 traversal_path = []
 
+path = Path()
+path.wander(world.starting_room, traversal_path)
 
 
 # TRAVERSAL TEST
@@ -48,9 +51,7 @@ else:
 
 
 
-#######
-# UNCOMMENT TO WALK AROUND
-#######
+
 player.current_room.print_room_description(player)
 while True:
     cmds = input("-> ").lower().split(" ")

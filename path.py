@@ -1,42 +1,42 @@
 from room import Room
 from world import World
 from player import Player
+from collections import defaultdict
 import random
 import math
 
-class Graph: 
+class Path: 
     def __init__(self): 
-        self.visited = [False] * 500
-        self.parent = [-1] * 500
         self.graph = {}
-  
-    def find_neighbors(self, room):
-        room.get_exits - array of existing exits 
+    
+    def wander(self, starting_room, move_log):
+        stack=[]
+        reverse_direction = {'n': 's', 's': 'n', 'w': 'e', 'e': 'w'}
+        current = starting_room
+        stack.append([(current, "")])
 
-        room.get_room_in_direction("n")
-        room.get_room_in_direction("e")
-        room.get_room_in_direction("s")
-        room.get_room_in_direction("w")
+        while len(stack) > 0: 
+            path = stack.pop()
+            popped = path[-1]
+            vertex, refDir = popped
+            if refDir:
+                move_log.append(reverse_direction[refDir])
+            
+            if vertex.id not in self.graph:
+                self.graph[vertex.id] = {} # Establish dict entry for this room.
 
-        if not already visited
-        append direction, neighbor 
+                for next_dir in vertex.get_exits(): # Get all exits
 
-        return list of neighbors
+                    self.graph[vertex.id][next_dir] = '?' # Initialize key(s) in graph for this exit
 
-    def log_edges(self, rooms=[]):
-        this would adjust the entries in the respective 2 dicts
+                    next_vert = vertex.get_room_in_direction(next_dir) # Get exit room number
+                    
+                    if next_vert not in self.graph: # If room hasn't been explored
+                        self.graph[vertex.id][next_dir] = next_vert.id # Set exit room ID in graph
+                        new_path = list(path) # Make a copy of path rather than reference
+                        new_path.append((next_vert, next_dir)) # Append this new vert and provide what direction it was
+                        move_log.append(next_dir)
+                        stack.append(new_path) # Add new room to stack
 
-
-    def wander(self):
-        # create bfs queue
-        queue = []
-        queue.append(starting_room)
-
-        while queue != []: 
-            current = queue.pop(0)
-            if self.visited[current] is False:
-                self.visited[current] is True:
-                if 
-
-
-
+        #sorted_dict = dict(sorted(self.graph.items())) 
+        print(self.graph)
