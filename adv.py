@@ -33,6 +33,7 @@ traversal_path = []
 path = Path()
 path.wander(world.starting_room, traversal_path)
 
+print(traversal_path)
 
 # TRAVERSAL TEST
 visited_rooms = set()
