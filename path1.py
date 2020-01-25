@@ -1,9 +1,4 @@
 from room import Room
-from world import World
-from player import Player
-from collections import defaultdict
-import random
-import math
 
 class Path: 
     def __init__(self): 
@@ -20,15 +15,14 @@ class Path:
             advpath = stack.pop()
             popped = advpath[-1]
             vertex = popped[0]
-            """
             if popped[1]:
-            move_log.append(reverse_direction[popped[1]])   
-            """
+                move_log.append(reverse_direction[popped[1]])
             if vertex.id not in self.graph: # If there's no entry in my graph
                 self.graph[vertex.id] = {} # Establish dict entry for this room.
                 for next_dir in vertex.get_exits(): # Get all exits
                     self.graph[vertex.id][next_dir] = '?' # Initialize key(s) in graph for this exit
                     next_vert = vertex.get_room_in_direction(next_dir) # Get exit room number
+                    move_log.append(next_dir)
                     if next_vert not in self.graph: # If room hasn't been explored
                         self.graph[vertex.id][next_dir] = next_vert.id # Set exit room ID in graph
                         new_path = list(advpath) # Make a copy of path rather than reference

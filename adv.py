@@ -1,7 +1,7 @@
 from room import Room
 from player import Player
 from world import World
-from path import Path
+from path2 import wander
 
 import random
 from ast import literal_eval
@@ -30,10 +30,14 @@ player = Player(world.starting_room)
 # traversal_path = ['n', 'n']
 traversal_path = []
 
+""" SPRINT 1
 path = Path()
 path.wander(world.starting_room, traversal_path)
-
 print(traversal_path)
+"""
+
+""" SPRINT 2! """
+traversal_path = wander(room_graph, world.starting_room)
 
 # TRAVERSAL TEST
 visited_rooms = set()
