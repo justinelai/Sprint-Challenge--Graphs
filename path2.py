@@ -1,4 +1,4 @@
-def stack_peek(stack):
+def stack_peek(stack): # errored if i didn't separate into own function
     if len(stack) < 1:
         return None
     else:
@@ -15,7 +15,7 @@ def wander(world, starting_room):
     initial = starting_room
     stack.append(initial)
 
-    while len(visited) < len(world): 
+    while len(visited) < len(world): # keep it to maze size since we're optimizing the path
 
         current = stack_peek(stack) # this time get current WITHOUT popping
         visited.add(current.id) # mark as visited
